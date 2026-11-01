@@ -1,0 +1,7 @@
+# Allow all crawlers access to the entire site
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://akokotakra.com/sitemap.xml
+
