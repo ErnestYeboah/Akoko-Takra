@@ -62,7 +62,7 @@ const selectedQuestionIndex = ref(0);
           </p>
         </div>
       </div>
-      <QuestionStorySet class="-mt-20 max-[992px]:hidden" />
+      <QuestionStorySet class="min-[992px]:-mt-20" />
     </div>
   </section>
 </template>

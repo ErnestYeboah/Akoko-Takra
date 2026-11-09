@@ -2,18 +2,15 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import Button from "./Button.vue";
+import { navLinks } from "@/utils/links_data.ts";
+import MobileSideBar from "./MobileSideBar.vue";
 
 interface NavLinks {
   label: string;
   to: string;
 }
 
-const navlinks: NavLinks[] = [
-  { label: "Home", to: "/#home" },
-  { label: "About", to: "/#about" },
-  { label: "Partners", to: "/#partners" },
-  { label: "Contact", to: "/#contact" },
-];
+const navlinks: NavLinks[] = navLinks;
 
 const router = useRouter();
 const selectedLink = ref("Home");
@@ -44,6 +41,11 @@ const goToStore = () => {
     "_blank",
     "noopener,noreferrer",
   );
+};
+
+const showMobileSideBar = ref(false);
+const toggleMobileSidebar = () => {
+  showMobileSideBar.value = !showMobileSideBar.value;
 };
 </script>
 <template>
@@ -90,13 +92,17 @@ const goToStore = () => {
     <!-- Hamburger for mobile devices -->
     <div class="hamburger min-[992px]:hidden scale-[0.6]">
       <input id="checkbox" type="checkbox" />
-      <label class="toggle" for="checkbox">
+      <label @click="toggleMobileSidebar" class="toggle" for="checkbox">
         <div id="bar1" class="bars"></div>
         <div id="bar2" class="bars"></div>
         <div id="bar3" class="bars"></div>
       </label>
     </div>
   </nav>
+  <MobileSideBar
+    @close="toggleMobileSidebar"
+    :class="` min-[992px]:hidden fixed inset-0 inset-bs-20 z-1000 ${showMobileSideBar ? 'active' : ''}`"
+  />
 </template>
 
 <style scoped>
@@ -152,6 +158,15 @@ nav {
   background-color: rgb(253, 255, 243);
   border-radius: 5px;
   transition-duration: 0.3s;
+  animation: in_view 500ms forwards;
+  animation-timeline: scroll(root);
+  animation-range: entry 900px exit 59px;
+}
+
+@keyframes in_view {
+  to {
+    background-color: var(--accent-color);
+  }
 }
 
 #checkbox:checked + .toggle #bar2 {
