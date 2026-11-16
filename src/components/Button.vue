@@ -23,7 +23,7 @@ const handleClick = () => {
 <template>
   <!-- From Uiverse.io by doniaskima -->
   <button @click="handleClick" class="btn-12">
-    <span>{{ label || "GET STARTED" }}</span>
+    <span>{{ label || "GET APP" }}</span>
   </button>
 </template>
 

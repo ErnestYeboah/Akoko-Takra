@@ -7,7 +7,9 @@ import NetBackground from "@/components/NetBackground.vue";
   <GeometryLayout class="h-[50vh]!">
     <footer
       id="footer"
-      class="text-center py-10 px-4 max-w-4xl mx-auto space-y-6"
+      class="text-center py-10 space-y-6"
+      data-aos="fade-up"
+      data-aos-duration="700"
     >
       <h3 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
         Agro Innova Co. Ltd
@@ -52,7 +54,7 @@ import NetBackground from "@/components/NetBackground.vue";
         class="social-links flex flex-wrap items-center justify-center gap-3 pt-2"
       >
         <!-- Twitter / X -->
-        <a
+        <!-- <a
           href="https://twitter.com/agroinnovaltd"
           target="_blank"
           rel="noopener noreferrer"
@@ -64,11 +66,11 @@ import NetBackground from "@/components/NetBackground.vue";
               d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
             />
           </svg>
-        </a>
+        </a> -->
 
         <!-- Facebook -->
         <a
-          href="https://web.facebook.com/AgroInnovaLLC"
+          href="https://www.facebook.com/AgroInnovaGH"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Facebook"
@@ -83,7 +85,7 @@ import NetBackground from "@/components/NetBackground.vue";
 
         <!-- Instagram -->
         <a
-          href="https://www.instagram.com/agroinnovagh/"
+          href="https://www.instagram.com/akokotakragh?dlrf=MXc0ajE5M2V0bnZsYQ=="
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
@@ -98,7 +100,7 @@ import NetBackground from "@/components/NetBackground.vue";
 
         <!-- LinkedIn -->
         <a
-          href="https://www.linkedin.com/company/agroinnovagh"
+          href="https://www.linkedin.com/company/akokotakra/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
@@ -111,24 +113,9 @@ import NetBackground from "@/components/NetBackground.vue";
           </svg>
         </a>
 
-        <!-- YouTube -->
-        <a
-          href="https://www.youtube.com/@agroinnovagh"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="YouTube"
-          class="social-btn"
-        >
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-            <path
-              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-            />
-          </svg>
-        </a>
-
         <!-- Email -->
         <a
-          href="mailto:info@agroinnovagh.com"
+          href="mailto:info@akokotakra.com"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Email"
@@ -149,7 +136,7 @@ import NetBackground from "@/components/NetBackground.vue";
 
         <!-- WhatsApp -->
         <a
-          href="https://wa.me/233240956276?text=Hello%20Agro%20Innova"
+          href="https://wa.me/233553368762?text=Hello%20Akoko%20Takra"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
@@ -190,8 +177,8 @@ import NetBackground from "@/components/NetBackground.vue";
 }
 
 .social-btn:hover {
-  background-color: var(--color-5, #5eff05);
-  color: #06362d;
+  background-color: var(--accent-color, #5eff05);
+  color: white;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(94, 255, 5, 0.35);
 }

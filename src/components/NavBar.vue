@@ -2,15 +2,10 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import Button from "./Button.vue";
-import { navLinks } from "@/utils/links_data.ts";
+import { navLinks, type NavLink } from "@/utils/links_data.ts";
 import MobileSideBar from "./MobileSideBar.vue";
 
-interface NavLinks {
-  label: string;
-  to: string;
-}
-
-const navlinks: NavLinks[] = navLinks;
+const navlinks: NavLink[] = navLinks;
 
 const router = useRouter();
 const selectedLink = ref("Home");
@@ -20,7 +15,7 @@ const selectedIndex = computed(() => {
   return index !== -1 ? index : 0;
 });
 
-const onSelectLink = (link: NavLinks) => {
+const onSelectLink = (link: NavLink) => {
   selectedLink.value = link.label;
   if (link.to.startsWith("/#")) {
     const hash = link.to.replace("/", "");
@@ -51,9 +46,9 @@ const toggleMobileSidebar = () => {
 <template>
   <nav>
     <img
-      width="150"
-      height="100"
-      src="../assets/akokotakra-01.webp"
+      width="50"
+      height="50"
+      src="../assets/takra_logo.webp"
       alt="Akoko Takra Logo"
     />
 
@@ -109,30 +104,24 @@ const toggleMobileSidebar = () => {
 nav {
   height: 4rem;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius);
+  /* border-radius: var(--radius); */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8.6px);
   -webkit-backdrop-filter: blur(8.6px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  padding-inline: 1rem;
-  z-index: 10;
-  width: 95%;
+  padding-inline: var(--padding);
+  z-index: 100;
+  width: 100%;
   position: fixed;
-  top: 2px;
-  left: 3%;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  @media (width > 992px) {
-    width: 90%;
-    left: 6%;
-  }
-
   img {
     background-color: white;
-    border-radius: inherit;
-    padding: 0.2rem 1rem;
+    border-radius: 50%;
   }
 }
 #checkbox {
@@ -212,7 +201,7 @@ nav {
   height: 32px;
   width: 80px;
   font-size: 0.85rem;
-  color: #2e2e2e;
+  color: var(--text-color);
   font-weight: 500;
   border-radius: 99px;
   cursor: pointer;
@@ -231,7 +220,7 @@ nav {
 }
 
 .container input[type="radio"]:checked + label {
-  color: var(--color-2, #0c5e37);
+  color: white;
   font-weight: 700;
 }
 
@@ -241,7 +230,7 @@ nav {
   left: 4px;
   height: 32px;
   width: 80px;
-  background-color: rgba(12, 94, 55, 0.12);
+  background-color: var(--accent-color);
   z-index: 1;
   border-radius: 99px;
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);

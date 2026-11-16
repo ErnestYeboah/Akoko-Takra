@@ -24,13 +24,16 @@ type Point = {
 
 type RGB = [number, number, number];
 
-// Theme RGB triplets corresponding to --color-1 .. --color-5 from main.css
-const theme: Record<"c1" | "c2" | "c3" | "c4" | "c5", RGB> = {
-  c1: [6, 54, 45], // #06362d - deep corporate forest
-  c2: [12, 94, 55], // #0c5e37 - rich pine green
-  c3: [0, 150, 49], // #009631 - classic business green
-  c4: [10, 201, 24], // #0ac918 - crisp bright tech green
-  c5: [94, 255, 5], // #5eff05 - electric neon lime accent
+// Theme RGB triplets synchronized with :root in main.css:
+// --color-1: #1e1e1e (dark charcoal base)
+// --color-2: #65cbb9 (mint turquoise accent & glow)
+// --color-3: #036068 (deep ocean teal mesh & hubs)
+// --color-4: #878787 (refined slate links)
+const theme: Record<"c1" | "c2" | "c3" | "c4", RGB> = {
+  c1: [30, 30, 30], // #1e1e1e
+  c2: [101, 203, 185], // #65cbb9
+  c3: [3, 96, 104], // #036068
+  c4: [135, 135, 135], // #878787
 };
 
 const hexToRgb = (hex: string, fallback: RGB): RGB => {
@@ -45,11 +48,10 @@ const hexToRgb = (hex: string, fallback: RGB): RGB => {
 const syncThemeFromCSS = () => {
   if (typeof window === "undefined") return;
   const s = getComputedStyle(document.documentElement);
-  theme.c1 = hexToRgb(s.getPropertyValue("--color-1"), theme.c1);
-  theme.c2 = hexToRgb(s.getPropertyValue("--color-2"), theme.c2);
-  theme.c3 = hexToRgb(s.getPropertyValue("--color-3"), theme.c3);
-  theme.c4 = hexToRgb(s.getPropertyValue("--color-4"), theme.c4);
-  theme.c5 = hexToRgb(s.getPropertyValue("--color-5"), theme.c5);
+  theme.c1 = hexToRgb(s.getPropertyValue("--color-1"), [30, 30, 30]);
+  theme.c2 = hexToRgb(s.getPropertyValue("--color-2"), [101, 203, 185]);
+  theme.c3 = hexToRgb(s.getPropertyValue("--color-3"), [3, 96, 104]);
+  theme.c4 = hexToRgb(s.getPropertyValue("--color-4"), [135, 135, 135]);
 };
 
 const createPoints = () => {
@@ -113,13 +115,18 @@ const draw = () => {
         c.moveTo(a.x, a.y);
         c.lineTo(b.x, b.y);
 
-        // Tiered color depth: tight connections pop in color-4 (#0ac918), wider in color-3 (#009631)
-        if (distance < maxDistance * 0.45) {
-          c.strokeStyle = `rgba(${theme.c4[0]}, ${theme.c4[1]}, ${theme.c4[2]}, ${alpha * 1.1})`;
+        // Tiered color depth: tight connections pop in mint teal (--color-2 #65cbb9),
+        // mid connections in deep ocean teal (--color-3 #036068),
+        // and distant links in soft slate (--color-4 #878787)
+        if (distance < maxDistance * 0.4) {
+          c.strokeStyle = `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, ${alpha * 0.95})`;
           c.lineWidth = 0.85;
+        } else if (distance < maxDistance * 0.7) {
+          c.strokeStyle = `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, ${alpha * 0.8})`;
+          c.lineWidth = 0.7;
         } else {
-          c.strokeStyle = `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, ${alpha})`;
-          c.lineWidth = 0.65;
+          c.strokeStyle = `rgba(${theme.c4[0]}, ${theme.c4[1]}, ${theme.c4[2]}, ${alpha * 0.5})`;
+          c.lineWidth = 0.55;
         }
         c.stroke();
       }
@@ -134,28 +141,28 @@ const draw = () => {
       const distance = Math.hypot(p.x - pointer.x, p.y - pointer.y);
       if (distance < pointerRadius) {
         const factor = 1 - distance / pointerRadius;
-        const alpha = factor * 0.72;
+        const alpha = factor * 0.75;
 
-        // Elegant gradient from node color-3/4 towards mouse neon lime (color-5)
+        // Elegant gradient from node teal towards cursor mint turquoise (--color-2)
         const gradient = c.createLinearGradient(p.x, p.y, pointer.x, pointer.y);
         gradient.addColorStop(
           0,
-          `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, ${alpha * 0.4})`,
+          `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, ${alpha * 0.35})`,
         );
         gradient.addColorStop(
           0.6,
-          `rgba(${theme.c4[0]}, ${theme.c4[1]}, ${theme.c4[2]}, ${alpha * 0.75})`,
+          `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, ${alpha * 0.75})`,
         );
         gradient.addColorStop(
           1,
-          `rgba(${theme.c5[0]}, ${theme.c5[1]}, ${theme.c5[2]}, ${alpha})`,
+          `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, ${alpha * 0.98})`,
         );
 
         c.beginPath();
         c.moveTo(p.x, p.y);
         c.lineTo(pointer.x, pointer.y);
         c.strokeStyle = gradient;
-        c.lineWidth = 0.75 + factor * 0.75;
+        c.lineWidth = 0.75 + factor * 0.85;
         c.stroke();
       }
     }
@@ -164,20 +171,20 @@ const draw = () => {
     // Outer subtle radar pulse
     c.beginPath();
     c.arc(pointer.x, pointer.y, 18, 0, Math.PI * 2);
-    c.strokeStyle = `rgba(${theme.c5[0]}, ${theme.c5[1]}, ${theme.c5[2]}, 0.22)`;
+    c.strokeStyle = `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, 0.25)`;
     c.lineWidth = 1;
     c.stroke();
 
     // Mid halo ring
     c.beginPath();
     c.arc(pointer.x, pointer.y, 7, 0, Math.PI * 2);
-    c.fillStyle = `rgba(${theme.c5[0]}, ${theme.c5[1]}, ${theme.c5[2]}, 0.28)`;
+    c.fillStyle = `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, 0.32)`;
     c.fill();
 
     // Precise core dot
     c.beginPath();
     c.arc(pointer.x, pointer.y, 2.8, 0, Math.PI * 2);
-    c.fillStyle = `rgba(${theme.c5[0]}, ${theme.c5[1]}, ${theme.c5[2]}, 0.95)`;
+    c.fillStyle = `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, 0.98)`;
     c.fill();
   }
 
@@ -191,9 +198,9 @@ const draw = () => {
     const haloRadius = p.radius + (p.isHub ? 4.5 : 2.5);
     c.arc(p.x, p.y, haloRadius, 0, Math.PI * 2);
     if (p.isHub || isNearPointer) {
-      c.fillStyle = `rgba(${theme.c5[0]}, ${theme.c5[1]}, ${theme.c5[2]}, 0.16)`;
+      c.fillStyle = `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, 0.22)`;
     } else {
-      c.fillStyle = `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, 0.08)`;
+      c.fillStyle = `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, 0.12)`;
     }
     c.fill();
 
@@ -201,9 +208,9 @@ const draw = () => {
     c.beginPath();
     c.arc(p.x, p.y, p.radius * (isNearPointer ? 1.25 : 1), 0, Math.PI * 2);
     if (p.isHub || isNearPointer) {
-      c.fillStyle = `rgba(${theme.c5[0]}, ${theme.c5[1]}, ${theme.c5[2]}, 0.88)`;
+      c.fillStyle = `rgba(${theme.c2[0]}, ${theme.c2[1]}, ${theme.c2[2]}, 0.92)`;
     } else {
-      c.fillStyle = `rgba(${theme.c4[0]}, ${theme.c4[1]}, ${theme.c4[2]}, 0.65)`;
+      c.fillStyle = `rgba(${theme.c3[0]}, ${theme.c3[1]}, ${theme.c3[2]}, 0.75)`;
     }
     c.fill();
   }
@@ -250,9 +257,14 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <main class="geometry-layout relative h-[98vh] overflow-hidden text-white">
-    <section ref="heroShell" class="geometry-shell relative isolate h-[98vh]">
-      <!-- Atmospheric Glows derived from CSS variables -->
+  <main
+    class="geometry-layout relative min-h-[50vh] h-full overflow-hidden text-white min-w-full"
+  >
+    <section
+      ref="heroShell"
+      class="geometry-shell relative isolate h-full min-h-[50vh] w-full flex flex-col justify-center"
+    >
+      <!-- Atmospheric Glows derived from :root CSS variables -->
       <div
         class="ambient-glow ambient-glow-top pointer-events-none absolute inset-0"
         aria-hidden="true"
@@ -270,9 +282,7 @@ onBeforeUnmount(() => {
       ></canvas>
 
       <!-- Slot Content rendered with full pointer interactivity -->
-      <div
-        class="relative z-10 w-full min-h-[calc(100vh-35px)] py-4 pointer-events-auto"
-      >
+      <div class="relative z-10 w-full h-full py-4 pointer-events-auto">
         <slot />
       </div>
     </section>
@@ -281,48 +291,49 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .geometry-layout {
-  background-color: var(--color-1, #06362d);
+  background-color: var(--color-1, #1e1e1e);
 }
 
 .geometry-shell {
   background:
     radial-gradient(
-      ellipse 85% 65% at 50% 12%,
-      rgba(12, 94, 55, 0.45) 0%,
+      ellipse 80% 60% at 50% 10%,
+      color-mix(in srgb, var(--color-3, #036068) 45%, transparent) 0%,
       transparent 70%
     ),
     radial-gradient(
       circle at 15% 85%,
-      rgba(6, 54, 45, 0.85) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 85% 75%,
-      rgba(12, 94, 55, 0.35) 0%,
+      color-mix(in srgb, var(--color-3, #036068) 35%, transparent) 0%,
       transparent 55%
     ),
+    radial-gradient(
+      circle at 85% 80%,
+      color-mix(in srgb, var(--color-2, #65cbb9) 15%, transparent) 0%,
+      transparent 50%
+    ),
     linear-gradient(
-      135deg,
-      #02120e 0%,
-      var(--color-1, #06362d) 48%,
-      #031c17 100%
+      150deg,
+      #141414 0%,
+      var(--color-1, #1e1e1e) 45%,
+      #121817 100%
     );
-  background-color: var(--color-1, #06362d);
+  background-color: var(--color-1, #1e1e1e);
+  min-width: 100%;
 }
 
 .ambient-glow-top {
   background: radial-gradient(
     ellipse at 50% 0%,
-    rgba(94, 255, 5, 0.09) 0%,
-    rgba(10, 201, 24, 0.05) 30%,
-    transparent 65%
+    color-mix(in srgb, var(--color-2, #65cbb9) 12%, transparent) 0%,
+    color-mix(in srgb, var(--color-3, #036068) 8%, transparent) 40%,
+    transparent 70%
   );
 }
 
 .ambient-glow-center {
   background: radial-gradient(
     circle at 50% 45%,
-    rgba(0, 150, 49, 0.12) 0%,
+    color-mix(in srgb, var(--color-3, #036068) 14%, transparent) 0%,
     transparent 60%
   );
 }

@@ -18,7 +18,7 @@
         y="382.4"
         width="500"
         height="0.25"
-        style="fill: rgb(235, 235, 235); transform-origin: 250px 382.525px"
+        style="fill: red; transform-origin: 250px 382.525px"
         id="elql0kkk3wnl"
         class="animable"
       ></rect>
@@ -27,7 +27,7 @@
         y="391.92"
         width="90.9"
         height="0.25"
-        style="fill: rgb(235, 235, 235); transform-origin: 404.45px 392.045px"
+        style="fill: red; transform-origin: 404.45px 392.045px"
         id="el14x6f8zvuj4"
         class="animable"
       ></rect>
@@ -54,7 +54,7 @@
         y="399.53"
         width="22.64"
         height="0.25"
-        style="fill: rgb(235, 235, 235); transform-origin: 63.78px 399.655px"
+        style="fill: red; transform-origin: 63.78px 399.655px"
         id="eltab0b910fo"
         class="animable"
       ></rect>
@@ -63,7 +63,7 @@
         y="399.53"
         width="26.89"
         height="0.25"
-        style="fill: rgb(235, 235, 235); transform-origin: 97.445px 399.655px"
+        style="fill: red; transform-origin: 97.445px 399.655px"
         id="eldsn36m7oowb"
         class="animable"
       ></rect>
@@ -84,7 +84,7 @@
       ></path>
       <path
         d="M453.31,337.8H260.21a5.72,5.72,0,0,1-5.71-5.71V60.66A5.72,5.72,0,0,1,260.21,55h193.1A5.71,5.71,0,0,1,459,60.66V332.09A5.71,5.71,0,0,1,453.31,337.8ZM260.21,55.2a5.47,5.47,0,0,0-5.46,5.46V332.09a5.47,5.47,0,0,0,5.46,5.46h193.1a5.47,5.47,0,0,0,5.46-5.46V60.66a5.47,5.47,0,0,0-5.46-5.46Z"
-        style="fill: rgb(235, 235, 235); transform-origin: 356.75px 196.4px"
+        style="fill: red; transform-origin: 356.75px 196.4px"
         id="el2mu0terkf9o"
         class="animable"
       ></path>

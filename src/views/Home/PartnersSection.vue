@@ -14,19 +14,22 @@ const getImageUrl = (name: string) => {
 </script>
 
 <template>
-  <section id="partners" class="py-(--padding) scroll-mt-20">
+  <section id="partners" class="mt-8">
     <h2
-      class="text-3xl md:text-5xl lg:text-[4rem] font-bold uppercase text-center mt-(--padding) tracking-tight"
+      class="text-[1.3rem] font-bold mb-2"
+      data-aos="fade-up"
+      data-aos-duration="600"
     >
-      Smarter Farm Management. Better Productivity.
+      Our <span class="text-(--color-3)">Partners</span>
     </h2>
-    <div
-      class="flex flex-wrap items-center justify-center gap-8 md:gap-12 mt-12 px-4 max-w-6xl mx-auto"
-    >
+    <div class="flex flex-wrap items-center flex-no">
       <figure
-        v-for="logo in partners"
+        v-for="(logo, index) in partners"
         :key="logo"
         class="flex items-center justify-center p-3 transition-transform duration-200 hover:scale-105"
+        data-aos="fade-up"
+        data-aos-duration="600"
+        :data-aos-delay="index * 80"
       >
         <img
           :src="getImageUrl(logo)"

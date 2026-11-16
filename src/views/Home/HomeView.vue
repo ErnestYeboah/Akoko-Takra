@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { onMounted, nextTick } from "vue";
+import AOS from "aos";
 import NavBar from "@/components/NavBar.vue";
-import ContactUsSection from "./ContactUsSection.vue";
 import Footer from "./Footer.vue";
 import GeneralQuestionSection from "./GeneralQuestionSection.vue";
 import HeroSection from "./HeroSection.vue";
 import HowItWorksSection from "./HowItWorksSection.vue";
-import PartnersSection from "./PartnersSection.vue";
 import SEOHeader from "@/components/SEOHeader.vue";
+import CTASection from "./CTASection.vue";
+import ContactSection from "./ContactSection.vue";
+
+onMounted(() => {
+  nextTick(() => {
+    AOS.refresh();
+  });
+});
 </script>
 
 <template>
@@ -18,11 +26,18 @@ import SEOHeader from "@/components/SEOHeader.vue";
   />
   <NavBar />
   <HeroSection />
-  <main class="w-[85%] mx-auto py-(--padding)">
+  <main class="py-(--padding)">
     <HowItWorksSection />
-    <PartnersSection />
     <GeneralQuestionSection />
-    <ContactUsSection />
+    <CTASection />
   </main>
+  <ContactSection />
   <Footer />
 </template>
+
+<style scoped>
+main > *:not(:nth-child(2)) {
+  width: 85%;
+  margin-inline: auto;
+}
+</style>
