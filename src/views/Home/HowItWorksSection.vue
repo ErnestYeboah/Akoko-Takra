@@ -6,6 +6,9 @@ import broilersEduHub from "@/assets/brolers_edu_hub.webp";
 import farmDetails from "@/assets/farm_details.webp";
 import forecast from "@/assets/forecast.webp";
 import PartnersSection from "./PartnersSection.vue";
+import penhouseOverlay from "@/assets/overlays_uis/Penhouse.png";
+import overlayComponent2 from "@/assets/overlays_uis/Dashboard.png";
+import dashboardOverlay from "@/assets/overlays_uis/Component_02.png";
 
 const mockups = [
   {
@@ -222,6 +225,42 @@ onUnmounted(() => {
             />
           </Transition>
         </div>
+
+        <!-- Floating UI Overlays around the phone -->
+        <div
+          class="ui-overlay-penhouse absolute -left-2 sm:-left-6 lg:-left-10 top-[22%] z-20 hidden min-[440px]:block pointer-events-none"
+          data-aos="fade-right"
+          data-aos-delay="300"
+        >
+          <img
+            :src="penhouseOverlay"
+            alt="Penhouse Flock Status"
+            class="w-32 sm:w-40 md:w-48 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+          />
+        </div>
+
+        <div
+          class="ui-overlay-dashboard absolute -right-2 sm:-right-6 lg:-right-10 bottom-[20%] z-20 hidden min-[440px]:block pointer-events-none"
+          data-aos="fade-left"
+          data-aos-delay="400"
+        >
+          <img
+            :src="dashboardOverlay"
+            alt="Live Farm Dashboard Metrics"
+            class="w-36 sm:w-44 md:w-52 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+          />
+        </div>
+        <div
+          class="ui-overlay-dashboard absolute -left-2 sm:-left-6 lg:-left-10 bottom-[20%] z-20 hidden min-[440px]:block pointer-events-none"
+          data-aos="fade-left"
+          data-aos-delay="400"
+        >
+          <img
+            :src="overlayComponent2"
+            alt="Profile Page"
+            class="w-36 sm:w-44 md:w-52 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+          />
+        </div>
       </figure>
 
       <div>
@@ -351,5 +390,34 @@ figure:hover .phone-device {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateX(-30px) scale(0.97);
+}
+
+/* Floating animations for UI overlays */
+.ui-overlay-penhouse {
+  animation: float-left-ui 5.5s ease-in-out infinite;
+}
+
+.ui-overlay-dashboard {
+  animation: float-right-ui 6.5s ease-in-out infinite 0.7s;
+}
+
+@keyframes float-left-ui {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(-1deg);
+  }
+}
+
+@keyframes float-right-ui {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
 }
 </style>

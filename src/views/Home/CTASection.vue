@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import suppliersOverlay from "@/assets/overlays_uis/Suppliers.png";
+import farmsOverlay from "@/assets/overlays_uis/Farms.png";
+
 const goToStore = () => {
   window.open(
     "https://play.google.com/store/apps/details?id=com.agroinnovagh.akokotakra",
@@ -20,15 +23,15 @@ const goToStore = () => {
 
       <!-- Description -->
       <p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
-        Say goodbye to lost paper notebooks and guesswork. Track feed, egg
-        production, bird mortality, treatments, and cashflow in real-time.
+        Say goodbye to lost paper notebooks and guesswork. Track your animal
+        feed, production, mortality, treatments, and cashflow in real-time.
         Designed specifically for commercial and smallholder livestock farmers.
       </p>
 
       <button @click="goToStore" class="playstore_figure"></button>
     </div>
     <figure
-      class="z-1 justify-self-center"
+      class="z-1 justify-self-center relative"
       data-aos="fade-left"
       data-aos-duration="800"
       data-aos-delay="100"
@@ -41,6 +44,28 @@ const goToStore = () => {
         alt="Akoko_Takra_Home"
         src="../../assets/home_view.png"
       />
+
+      <!-- Floating Suppliers Card Overlay -->
+      <div
+        class="cta-overlay-suppliers absolute -left-4 sm:-left-10 bottom-6 z-10 hidden sm:block pointer-events-none"
+      >
+        <img
+          :src="suppliersOverlay"
+          alt="Suppliers Directory"
+          class="w-24 sm:w-32 md:w-36 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+        />
+      </div>
+
+      <!-- Floating Farms Card Overlay -->
+      <div
+        class="cta-overlay-farms absolute -right-4 sm:-right-10 top-6 z-10 hidden sm:block pointer-events-none"
+      >
+        <img
+          :src="farmsOverlay"
+          alt="Active Farm Monitoring"
+          class="w-24 sm:w-32 md:w-36 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+        />
+      </div>
     </figure>
 
     <div
@@ -96,5 +121,34 @@ const goToStore = () => {
 
 .cta_image {
   width: max(20vw, 200px);
+}
+
+/* Floating animations for CTA overlays */
+.cta-overlay-suppliers {
+  animation: cta-float-left 6s ease-in-out infinite;
+}
+
+.cta-overlay-farms {
+  animation: cta-float-right 6.5s ease-in-out infinite 0.7s;
+}
+
+@keyframes cta-float-left {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+}
+
+@keyframes cta-float-right {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(1deg);
+  }
 }
 </style>

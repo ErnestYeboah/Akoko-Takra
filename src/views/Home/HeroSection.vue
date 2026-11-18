@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Button from "@/components/Button.vue";
 import heroBg from "@/assets/broilers.jpg";
+import overlayComponent01 from "@/assets/overlays_uis/Component_01.png";
+import overlayComponent03 from "@/assets/overlays_uis/Component_03.png";
 import { ref, onMounted, onUnmounted } from "vue";
 
 const goToStore = () => {
@@ -112,6 +114,28 @@ onUnmounted(() => {
               fetchpriority="high"
               class="phone_device w-46.25 sm:w-55 md:w-62.5 lg:w-72.5 h-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
             />
+
+            <!-- Floating UI Card Overlay 1 (Top Left) -->
+            <div
+              class="hero-overlay-1 absolute -left-4 sm:-left-10 md:-left-14 top-1/4 -translate-y-1/2 z-20 hidden min-[540px]:block pointer-events-none"
+            >
+              <img
+                :src="overlayComponent01"
+                alt="App Widget Preview"
+                class="w-28 sm:w-36 md:w-42 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+              />
+            </div>
+
+            <!-- Floating UI Card Overlay 2 (Bottom Right) -->
+            <div
+              class="hero-overlay-2 absolute -right-4 sm:-right-10 md:-right-14 bottom-1/4 translate-y-1/4 z-20 hidden min-[540px]:block pointer-events-none"
+            >
+              <img
+                :src="overlayComponent03"
+                alt="Farm Analytics Widget"
+                class="w-32 sm:w-40 md:w-48 h-auto object-contain rounded-xl drop-shadow-2xl border border-white/60 bg-white/40 backdrop-blur-xs"
+              />
+            </div>
           </div>
         </div>
 
@@ -209,5 +233,34 @@ onUnmounted(() => {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(-20%);
+}
+
+/* Floating UI card overlays */
+.hero-overlay-1 {
+  animation: hero-float-left 5.5s ease-in-out infinite;
+}
+
+.hero-overlay-2 {
+  animation: hero-float-right 6s ease-in-out infinite 0.8s;
+}
+
+@keyframes hero-float-left {
+  0%,
+  100% {
+    transform: translateY(-50%) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(calc(-50% - 8px)) rotate(-1deg);
+  }
+}
+
+@keyframes hero-float-right {
+  0%,
+  100% {
+    transform: translateY(25%) rotate(3deg);
+  }
+  50% {
+    transform: translateY(calc(25% - 8px)) rotate(1deg);
+  }
 }
 </style>
